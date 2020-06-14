@@ -1,0 +1,24 @@
+USER-SUPPLIED VALUES:
+codeserver:
+  existingSecret: codeserver
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+  enabled: true
+  hosts:
+  - host: codeserver.uno.sh
+    paths:
+    - /
+  tls:
+  - hosts:
+    - codeserver.uno.sh
+    secretName: codeserver.uno.sh-prod-tls
+persistence:
+  accessMode: ReadWriteOnce
+  enabled: true
+  size: 40Gi
+  storageClass: nfs-client
+securityContext:
+  runAsGroup: 1000
+  runAsUser: 1000

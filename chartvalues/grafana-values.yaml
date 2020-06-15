@@ -1,0 +1,38 @@
+USER-SUPPLIED VALUES:
+admin:
+  existingSecret: "grafana"
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    dataSources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prom-prometheus-server
+      access: proxy
+      isDefault: true
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+  path: /
+  hosts:
+  - grafana.uno.sh
+  tls:
+    - hosts:
+      - grafana.uno.sh
+      secretName: grafana.uno.sh-prod-tls
+initChownData:
+  enabled: false
+persistence:
+  enabled: true
+  size: 5Gi
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+testFramework:
+  enabled: false

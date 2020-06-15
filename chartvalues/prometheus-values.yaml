@@ -1,0 +1,49 @@
+USER-SUPPLIED VALUES:
+alertmanager:
+  enabled: true
+  persistentVolume:
+    accessModes:
+    - ReadWriteOnce
+    enabled: true
+    storageClass: nfs-client
+  resources:
+    limits:
+      cpu: 10m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+kubeStateMetrics:
+  enabled: true
+kube-state-metrics:
+  image:
+    repository: kopkop/kube-state-metrics-arm64
+    tag: v1.9.7
+nodeExporter:
+  enabled: true
+podSecurityPolicy:
+  enabled: true
+pushgateway:
+  enabled: false
+server:
+  global:
+    evaluation_interval: 30s
+    scrape_interval: 30s
+    scrape_timeout: 30s
+  ingress:
+    enabled: false
+  persistentVolume:
+    enabled: true
+    storageClass: nfs-client
+    size: 20Gi
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  retention: 10d
+  statefulSet:
+    enabled: false

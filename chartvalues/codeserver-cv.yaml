@@ -19,6 +19,8 @@ persistence:
   enabled: true
   size: 40Gi
   storageClass: nfs-client
+podSecurityContext:
+  fsGroup: 1000
 securityContext:
   runAsGroup: 1000
   runAsUser: 1000

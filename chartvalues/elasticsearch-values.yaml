@@ -1,0 +1,77 @@
+---
+image: "kopkop/elasticsearch"
+replicas: 1
+minimumMasterNodes: 1
+nodeGroup: "master"
+
+roles:
+  master: "true"
+  ingest: "true"
+  data: "true"
+
+protocol: https
+
+extraEnvs:
+  - name: ELASTIC_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elastic-credentials
+        key: password
+  - name: ELASTIC_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elastic-credentials
+        key: username
+
+extraInitContainers:
+  - name: volume-mount-hack
+    image: busybox
+    securityContext:
+      runAsUser: 0
+      privileged: true
+    command: ["sh", "-c", "chown -R 1000:1000 /data && chmod 755 /data"]
+    volumeMounts:
+    - name: elasticsearch-master
+      mountPath: /data
+
+secretMounts:
+  - name: elastic-certificates
+    secretName: elastic-certificates
+    path: /usr/share/elasticsearch/config/certs
+
+# Disable privileged init Container creation.
+sysctlInitContainer:
+  enabled: false
+
+# Restrict the use of the memory-mapping when sysctlInitContainer is disabled.
+esConfig:
+  elasticsearch.yml: |
+    node.store.allow_mmap: false
+    xpack.security.enabled: true
+    xpack.security.transport.ssl.enabled: true
+    xpack.security.transport.ssl.verification_mode: certificate
+    xpack.security.transport.ssl.keystore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+    xpack.security.transport.ssl.truststore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+    xpack.security.http.ssl.enabled: true
+    xpack.security.http.ssl.truststore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+    xpack.security.http.ssl.keystore.path: /usr/share/elasticsearch/config/certs/elastic-certificates.p12
+# Permit co-located instances for solitary minikube virtual machines.
+antiAffinity: "soft"
+
+# Shrink default JVM heap.
+esJavaOpts: "-Xmx128m -Xms128m"
+
+# Allocate smaller chunks of memory per pod.
+resources:
+  requests:
+    cpu: "100m"
+    memory: "512M"
+  limits:
+    cpu: "1000m"
+    memory: "512M"
+
+podSecurityContext:
+  fsGroup: 1000
+securityContext:
+  runAsGroup: 1000
+  runAsUser: 1000

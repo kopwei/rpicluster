@@ -9,7 +9,7 @@ Here is the instruction about how to install Elasticsearch with TLS and Auth ena
 ```bash
 ELASTIC_PASSWORD=<YOUR_PASSWORD> bash scripts/elasticsearch-secrets.sh
 
-helm install es elastic/elasticsearch -f chartvalues/elasticsearch-values.yaml
+helm install es elastic/elasticsearch -f chartvalues/efk/elasticsearch-values.yaml
 ```
 
 ## Install Kibana
@@ -19,7 +19,7 @@ Here is the instruction about how to install Kibana as UI of Elasticsearch.
 ```bash
 bash scripts/kibana-secret.sh
 
-helm install kibana elastic/kibana -f chartvalues/kibana-values.yaml
+helm install kibana elastic/kibana -f chartvalues/efk/kibana-values.yaml
 ```
 
 ## Install Fluentbit

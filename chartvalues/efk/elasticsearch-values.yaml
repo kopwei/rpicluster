@@ -59,16 +59,16 @@ esConfig:
 antiAffinity: "soft"
 
 # Shrink default JVM heap.
-esJavaOpts: "-Xmx128m -Xms128m"
+#esJavaOpts: "-Xmx256m -Xms256m"
 
 # Allocate smaller chunks of memory per pod.
 resources:
   requests:
-    cpu: "100m"
-    memory: "512M"
+    cpu: "1000m"
+    memory: "2Gi"
   limits:
     cpu: "1000m"
-    memory: "512M"
+    memory: "2Gi"
 
 podSecurityContext:
   fsGroup: 1000

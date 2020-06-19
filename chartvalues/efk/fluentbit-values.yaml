@@ -1,0 +1,34 @@
+backend:
+  type: es
+  es:
+    host: elasticsearch-master-headless
+    port: 9200
+    # Elastic Index Name
+    index: ""
+    type: flb_type
+    logstash_prefix: ""
+    replace_dots: "On"
+    logstash_format: "On"
+    retry_limit: "False"
+    time_key: "@timestamp"
+    # Optional username credential for Elastic X-Pack access
+    http_user: "elastic"
+    # Password for user defined in HTTP_User
+    http_passwd_secret: elastic-credentials
+    http_passwd_secret_key: password
+
+    # Optional TLS encryption to ElasticSearch instance
+    tls: "on"
+    tls_verify: "off"
+    # TLS certificate for the Elastic (in PEM format). Use if tls=on and tls_verify=on.
+    tls_ca: ""
+    # TLS debugging levels = 1-4
+    tls_debug: 1
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 10m
+    memory: 8Mi

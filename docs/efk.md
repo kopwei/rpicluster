@@ -23,3 +23,17 @@ helm install kibana elastic/kibana -f chartvalues/efk/kibana-values.yaml
 ```
 
 ## Install Fluentbit
+
+Here is the instruction about how to install Fluentbit as log collector.
+
+```bash
+helm install fb stable/fluent-bit -f chartvalues/efk/fluentbit-values.yaml
+```
+
+## Install Curator
+
+In order to make sure the logs won't exceeds the storage, we use Elastic Curator to cleanup the logs.
+
+```bash
+helm install curator stable/elasticsearch-curator -f chartvalues/efk/curator-cv.yaml
+```

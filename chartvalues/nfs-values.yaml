@@ -1,0 +1,6 @@
+USER-SUPPLIED VALUES:
+image:
+  repository: kopkop/nfs-client-provisioner-arm64
+nfs:
+  path: /volume1/nfs
+  server: 192.168.11.10

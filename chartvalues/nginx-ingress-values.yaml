@@ -1,0 +1,8 @@
+USER-SUPPLIED VALUES:
+controller:
+  image:
+    repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller-arm64
+    runAsUser: 33
+    tag: 0.25.1
+defaultBackend:
+  enabled: false

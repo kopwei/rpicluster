@@ -1,0 +1,33 @@
+USER-SUPPLIED VALUES:
+USER-SUPPLIED VALUES: null
+configMaps:
+  useDefaults:
+    containersInputConf: true
+    forwardInputConf: true
+    monitoringConf: false
+    outputConf: true
+    systemConf: true
+    systemInputConf: false
+elasticsearch:
+  auth:
+    enabled: true
+    password: ""
+    user: elastic
+  hosts:
+  - elasticsearch-master-headless:9200
+  scheme: https
+  sshVerify: false
+  sslVerify: false
+image:
+  repository: kopkop/fluentd
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+secret:
+- name: OUTPUT_PASSWORD
+  secret_key: password
+  secret_name: elastic-credentials

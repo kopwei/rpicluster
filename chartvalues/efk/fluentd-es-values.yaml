@@ -198,6 +198,8 @@ extraConfigMaps:
       @id loggentor_filter_parser
       @type parser
       key_name message
+      reserve_data true
+      remove_key_name_field true
       <parse>
         @type regexp
         expression /^(?<loggentor-logtime>[^\,]*),\d{3} - (?<loggentor-module>[^ ]*) - (?<loggentor-level>[^ ]*) - (?<loggentor-customer>[^\:]*)\: (?<loggentor-filename>[^ ]*) (?<loggentor-result>.*)/

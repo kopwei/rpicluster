@@ -1,0 +1,18 @@
+## set up ssh user name and path to python3 ##
+[all:vars]
+ansible_user='ubuntu'
+ansible_become=yes
+ansible_become_method=sudo
+ansible_python_interpreter='/usr/bin/env python3'
+ 
+##########################
+## our rpi server names
+## piattop may be mapped using /etc/hosts or ~/.ssh/config
+## you can use ip address here too
+###########################
+[servers]
+pi4main
+piattop
+piat2nd
+piat3rd
+piatbottom

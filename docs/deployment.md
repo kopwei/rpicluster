@@ -55,7 +55,8 @@ Here we deploy the loadbalancer and ingress controller onto the cluster.
 ```bash
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo update
-helm install metallb stable/metallb --namespace kube-system \
+kubectl create namespace metallb
+helm install metallb stable/metallb --namespace metallb \
   --set configInline.address-pools[0].name=default \
   --set configInline.address-pools[0].protocol=layer2 \
   --set configInline.address-pools[0].addresses[0]=192.168.11.50-192.168.11.60
@@ -68,9 +69,10 @@ kubectl create namespace ingress-controller
 helm install nginx-ingress stable/nginx-ingress \
   --namespace ingress-controller \
   --set controller.image.repository=quay.io/kubernetes-ingress-controller/nginx-ingress-controller-arm64 \
-  --set controller.image.tag=0.25.1 \
+  --set controller.image.tag=0.32.0 \
   --set controller.image.runAsUser=33 \
-  --set defaultBackend.enabled=false
+  --set defaultBackend.enabled=false \
+  --version=1.40.3
 ```
 
 ### Install Cert-manager
@@ -79,7 +81,7 @@ Cert manager will help you to grant TLS keys from Letsencrypt. I created a separ
 
 ```bash
 # Install the CustomResourceDefinition resources separately
-kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.crds.yaml
 
 # **Important:**
 # If you are running Kubernetes v1.15 or below, you
@@ -104,7 +106,7 @@ helm repo update
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
-  --version v0.12.0
+  --version v1.1.0
 ```
 
 ### Install Rancher

@@ -53,7 +53,7 @@ Here we deploy the loadbalancer and ingress controller onto the cluster.
 - Use Helm(v3) to install Loadbalancer
 
 ```bash
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add stable https://charts.helm.sh/stable
 helm repo update
 kubectl create namespace metallb
 helm install metallb stable/metallb --namespace metallb \
@@ -70,7 +70,7 @@ helm install nginx-ingress stable/nginx-ingress \
   --namespace ingress-controller \
   --set controller.image.repository=quay.io/kubernetes-ingress-controller/nginx-ingress-controller-arm64 \
   --set controller.image.tag=0.32.0 \
-  --set controller.image.runAsUser=33 \
+  --set controller.image.runAsUser=101 \
   --set defaultBackend.enabled=false \
   --version=1.40.3
 ```

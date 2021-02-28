@@ -77,24 +77,9 @@ helm install nginx-ingress stable/nginx-ingress \
 
 ### Install Cert-manager
 
-Cert manager will help you to grant TLS keys from Letsencrypt. I created a separate namespace to install it. I refer to Rancher's [cert-manager install doc](https://rancher.com/docs/rancher/v2.x/en/installation/k8s-install/helm-rancher/#5-install-cert-manager)
+Cert manager will help you to grant TLS keys from Letsencrypt. I created a separate namespace to install it. I refer to Rancher's [cert-manager install doc](https://rancher.com/docs/rancher/v2.x/en/installation/k8s-install/helm-rancher/#5-install-cert-manager) and [cert-manager-install-doc](https://cert-manager.io/docs/installation/kubernetes/)
 
 ```bash
-# Install the CustomResourceDefinition resources separately
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.crds.yaml
-
-# **Important:**
-# If you are running Kubernetes v1.15 or below, you
-# will need to add the `--validate=false` flag to your
-# kubectl apply command, or else you will receive a
-# validation error relating to the
-# x-kubernetes-preserve-unknown-fields field in
-# cert-manager’s CustomResourceDefinition resources.
-# This is a benign error and occurs due to the way kubectl
-# performs resource validation.
-
-# Create the namespace for cert-manager
-kubectl create namespace cert-manager
 
 # Add the Jetstack Helm repository
 helm repo add jetstack https://charts.jetstack.io
@@ -106,7 +91,9 @@ helm repo update
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
-  --version v1.1.0
+  --version v1.2.0 \
+  --create-namespace \
+  --set installCRDs=true
 ```
 
 ### Install Rancher

@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: stable
-        namespace: flux-system
+        namespace: flux-support
       interval: 1m
   values:
     configInline:

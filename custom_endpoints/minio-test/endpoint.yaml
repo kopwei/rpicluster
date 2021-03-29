@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: gitlab
+  name: minio
 subsets:
   - addresses:
-      - ip: 192.168.11.10
+      - ip: 192.168.11.20
     ports:
-      - port: 8080
+      - port: 80

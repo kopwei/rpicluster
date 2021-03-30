@@ -4,6 +4,7 @@ metadata:
   name: minio
 subsets:
   - addresses:
+      - ip: 192.168.11.11
       - ip: 192.168.11.20
     ports:
       - port: 80

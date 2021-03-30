@@ -108,6 +108,35 @@ sudo systemctl enable minio
 sudo systemctl start minio
 ```
 
+### Proxy Minio server to port 80 with Apache [Optional]
+
+Sometimes we'd like to expose Minio to public with port 80. We may use Apache to fullfil it by configuring Apache as Minio proxy. (Remember to change the <HOST_FQDN> to correct value, e.g. example.com)
+
+```conf
+<VirtualHost *:80>
+    ServerName <HOST_FQDN>
+    ErrorLog /var/log/httpd/<HOST_FQDN>-error.log
+    CustomLog /var/log/httpd/<HOST_FQDN>-access.log combined
+
+    ProxyRequests Off
+    ProxyVia Block
+    ProxyPreserveHost On
+
+    <Proxy *>
+         Require all granted
+    </Proxy>
+
+    ProxyPass / http://localhost:9000/
+    ProxyPassReverse / http://localhost:9000/
+</VirtualHost>
+```
+
+N.B. Restart Apache server after configuration change.
+
+```bash
+sudo service httpd restart
+```
+
 ## Load-balancing
 
 In order to create a single endpoint of the Minio cluster. We create a loadbalancer (NGINX) to perform the task.
@@ -248,4 +277,20 @@ curl <SHARE_LINK> --output /path/to/local/file
 #   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 #                                  Dload  Upload   Total   Spent    Left  Speed
 # 100 3440k  100 3440k    0     0   828k      0  0:00:04  0:00:04 --:--:--  829k
+```
+
+## Administration
+
+After the service is up and running, we shall create groups/users to manage the authentication
+
+### Create new user
+
+We shall create new user and provide accessibility.
+
+```bash
+mc admin user add <TARGET> <USER_NAME> <PASSWORD>
+
+# Example
+# mc admin user add minio myuser mypassword
+# Added user `myuser` successfully.
 ```

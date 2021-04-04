@@ -1,0 +1,7 @@
+USER-SUPPLIED VALUES:
+hostname: rancher.uno.sh
+ingress:
+  tls:
+    source: letsEncrypt
+letsEncrypt:
+  email: kopkop@gmail.com

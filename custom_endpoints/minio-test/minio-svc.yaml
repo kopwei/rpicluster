@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-03-30T21:13:23Z"
+  name: minio
+  namespace: minio-test
+  resourceVersion: "19608148"
+  uid: edc0129e-3558-4a10-a805-0d95220ef828
+spec:
+  clusterIP: 10.43.179.246
+  clusterIPs:
+  - 10.43.179.246
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  type: ClusterIP
+status:
+  loadBalancer: {}

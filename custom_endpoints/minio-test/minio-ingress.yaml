@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["192.168.11.14"],"port":80,"protocol":"HTTP","serviceName":"minio-test:minio","ingressName":"minio-test:minio","hostname":"minio.uno.sh","path":"/","allNodes":false}]'
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+  creationTimestamp: "2021-04-22T15:41:25Z"
+  generation: 1
+  name: minio
+  namespace: minio-test
+  resourceVersion: "38876211"
+  uid: 84b5d9f7-6e5e-4969-8058-f7b13c3b6281
+spec:
+  rules:
+  - host: minio.uno.sh
+    http:
+      paths:
+      - backend:
+          service:
+            name: minio
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.11.14

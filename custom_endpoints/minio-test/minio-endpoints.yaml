@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  creationTimestamp: "2021-03-30T21:13:23Z"
+  name: minio
+  namespace: minio-test
+  resourceVersion: "50379373"
+  uid: e445fbfc-a2d8-4e28-94a7-2db90830af5c
+subsets:
+- addresses:
+  - ip: 192.168.11.11
+  - ip: 192.168.11.16
+  ports:
+  - port: 80
+    protocol: TCP

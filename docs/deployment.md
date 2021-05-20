@@ -35,6 +35,10 @@ curl -sfL https://get.k3s.io | sh -
 
 # Get token of the k3s svc
 sudo cat /var/lib/rancher/k3s/server/node-token
+
+# Copy kube config file
+mkdir ~/.kube
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 ```
 
 - Install K3s agent, TOKEN can be fetched at server machine 

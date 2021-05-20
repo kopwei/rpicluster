@@ -30,7 +30,7 @@ We are about to install K3s on the cluster. We use `piattop` as the K3s server a
 
 ```bash
 export K3S_KUBECONFIG_MODE="644"
-export INSTALL_K3S_EXEC=" --no-deploy servicelb --no-deploy traefik"
+export INSTALL_K3S_EXEC=" --disable servicelb --disable traefik"
 curl -sfL https://get.k3s.io | sh -
 
 # Get token of the k3s svc

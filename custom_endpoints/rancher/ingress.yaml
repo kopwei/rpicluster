@@ -1,19 +1,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio
+  name: rancher
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-body-size: 1024m
 spec:
   rules:
-  - host: "minio.uno.sh"
+  - host: "rancher.uno.sh"
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: minio
+            name: rancher
             port:
               number: 80
+  tls:
+  - hosts:
+    - rancher.uno.sh
+    secretName: rancher-ingress-tls

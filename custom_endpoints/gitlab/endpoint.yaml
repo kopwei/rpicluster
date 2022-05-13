@@ -6,4 +6,4 @@ subsets:
   - addresses:
       - ip: 192.168.11.10
     ports:
-      - port: 8080
+      - port: 49080
